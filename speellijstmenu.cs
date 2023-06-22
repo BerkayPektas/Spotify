@@ -6,54 +6,159 @@ using System.Threading.Tasks;
 
 namespace Spotify
 {
-    internal class speellijsten
+    internal class speellijstmenu
     {
-        class Playlist
+        private static List<Playlist> playlists = new List<Playlist>();
+
+        public void DisplayPlaylistMenu()
         {
-            public string Name { get; set; }
-            private List<Song> songs;
-            private int currentSongIndex;
+            int option = 0;
 
-            public Playlist(string name)
+            do
             {
-                Name = name;
-                songs = new List<Song>();
-                currentSongIndex = 0;
-            }
+                Console.WriteLine("Select an option:");
+                Console.WriteLine("1. Create new playlist");
+                Console.WriteLine("2. View playlists");
+                Console.WriteLine("3. Back to main menu");
+                Console.Write("Option: ");
+                option = int.Parse(Console.ReadLine());
 
-            public void AddSong(Song song)
-            {
-                songs.Add(song);
-            }
-
-            public void RemoveSong(Song song)
-            {
-                songs.Remove(song);
-            }
-
-            public void Play()
-            {
-                if (songs.Count == 0)
+                switch (option)
                 {
-                    Console.WriteLine("The playlist is empty.");
-                    return;
+                    case 1:
+                        CreateNewPlaylist();
+                        break;
+                    case 2:
+                        ViewPlaylists();
+                        break;
+                    case 3:
+                        Console.WriteLine("Going back to main menu...");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
                 }
 
-                Console.WriteLine("Playing playlist: " + Name);
+                Console.WriteLine();
+            } while (option != 3);
+        }
 
-                while (currentSongIndex < songs.Count)
-                {
-                    Song currentSong = songs[currentSongIndex];
-                    Console.WriteLine("Now playing: " + currentSong.Title);
+        private static void CreateNewPlaylist()
+        {
+            Console.WriteLine("Enter the name for your new playlist:");
+            string playlistName = Console.ReadLine();
 
-                    // Simulate playing the song...
+            Playlist newPlaylist = new Playlist(playlistName);
+            playlists.Add(newPlaylist);
 
-                    currentSongIndex++;
-                }
+            Console.WriteLine($"New playlist '{playlistName}' has been created!");
+            Console.WriteLine();
 
-                Console.WriteLine("End of playlist.");
-                currentSongIndex = 0; // Reset the current song index for future playbacks
+            // Print de nieuw gemaakte afspeellijst
+            Console.WriteLine($"{newPlaylist.Name}:");
+            Console.WriteLine();
+
+            Console.WriteLine("Enter '3' to go back to playlist overview");
+
+            string userInput = Console.ReadLine();
+            if (userInput == "3")
+            {
+                Console.WriteLine();
+                return;
             }
+        }
+        private static void RemovePlaylist(List<Playlist> playlists)
+        {
+            Console.WriteLine("Which playlist do you want to remove?");
+            Console.Write("Playlist: ");
+            int optie = int.Parse(Console.ReadLine());
+
+            if (optie < 1 || optie > playlists.Count)
+            {
+                Console.WriteLine("Invalid option.");
+                Console.WriteLine();
+                return;
+            }
+
+            Playlist playlistToRemove = playlists[optie - 1];
+            playlists.Remove(playlistToRemove);
+
+            Console.WriteLine($"Playlist '{playlistToRemove.Name}' has been removed.");
+        }
+
+
+        private static void ViewPlaylists()
+        {
+            Console.WriteLine("Playlist Overview:");
+            Console.WriteLine();
+
+            if (playlists.Count == 0)
+            {
+                Console.WriteLine("Currently no playlists available.");
+                Console.WriteLine();
+                return;
+            }
+
+            for (int i = 0; i < playlists.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {playlists[i].Name}");
+            }
+
+            Console.WriteLine($"{playlists.Count + 1}. Remove a playlist");
+            Console.WriteLine($"{playlists.Count + 2}. Go back to playlist menu");
+            Console.Write("Playlist: ");
+            int optie = int.Parse(Console.ReadLine());
+
+            if (optie == playlists.Count + 2)
+            {
+                Console.WriteLine();
+                return;
+            }
+
+            if (optie < 1 || optie > playlists.Count + 1)
+            {
+                Console.WriteLine("Invalid option.");
+                Console.WriteLine();
+                return;
+            }
+
+            if (optie == playlists.Count + 1)
+            {
+                RemovePlaylist(playlists);
+                Console.WriteLine();
+                return;
+            }
+
+            Playlist selectedPlaylist = playlists[optie - 1];
+
+            Console.WriteLine();
+            Console.WriteLine($"{selectedPlaylist.Name}:");
+            Console.WriteLine();
+
+            for (int i = 0; i < selectedPlaylist.Songs.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {selectedPlaylist.Songs[i].ToString()}");
+            }
+
+            Console.WriteLine($"{selectedPlaylist.Songs.Count + 1}. Go back to playlist overview");
+            optie = int.Parse(Console.ReadLine());
+
+            if (optie == selectedPlaylist.Songs.Count + 1)
+            {
+                Console.WriteLine();
+                return;
+            }
+
+            if (optie < 1 || optie > selectedPlaylist.Songs.Count)
+            {
+                Console.WriteLine("Invalid option.");
+                Console.WriteLine();
+                return;
+            }
+
+            Songs selectedSong = selectedPlaylist.Songs[optie - 1];
+
+            Console.WriteLine($"Now playing '{selectedSong.ToString()}' from '{selectedPlaylist.Name}'!");
         }
 
     }
