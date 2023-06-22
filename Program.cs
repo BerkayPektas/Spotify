@@ -31,7 +31,7 @@
                         break;
                     case 3:
                         Console.WriteLine("Navigating to Friendlist...");
-                        Vrienden vrienden = new Vrienden();
+                        Friends vrienden = new Friends();
                         vrienden.Display();
                         break;
                     case 4:

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Spotify
 {
-    internal class Vrienden
+    internal class Friends
     {
         /// <summary>
         /// hardcoded lijst friends word opgehaald. 
         /// </summary>
-        private List<string> vrienden = new List<string> { "Jack", "John", "Tom" };
+        private List<string> friends = new List<string> { "Jack", "John", "Tom" };
         /// <summary>
         /// methode die input vraagt en vanuit hier kan de user navigeren naar Viewfriends waar vrienden hardcoded staan of ze kunnen kiezen om terug naar het menu te gaan. 
         /// </summary>
@@ -61,13 +61,13 @@ namespace Spotify
 
             if (!string.IsNullOrEmpty(friendToAdd))
             {
-                if (vrienden.Contains(friendToAdd))
+                if (friends.Contains(friendToAdd))
                 {
                     Console.WriteLine("This friend is already in your list.");
                 }
                 else
                 {
-                    vrienden.Add(friendToAdd);
+                    friends.Add(friendToAdd);
                     Console.WriteLine("Friend added successfully.");
                 }
             }
@@ -81,9 +81,9 @@ namespace Spotify
             Console.Write("Enter the name of the friend you want to remove: ");
             string friendToRemove = Console.ReadLine();
 
-            if (vrienden.Contains(friendToRemove))
+            if (friends.Contains(friendToRemove))
             {
-                vrienden.Remove(friendToRemove);
+                friends.Remove(friendToRemove);
                 Console.WriteLine("Friend removed successfully.");
             }
             else
@@ -97,7 +97,7 @@ namespace Spotify
         private void ViewFriends()
         {
             Console.WriteLine("Friends List:");
-            foreach (string friend in vrienden)
+            foreach (string friend in friends)
             {
                 Console.WriteLine(friend);
             }
