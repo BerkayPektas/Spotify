@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spotify
 {
-    internal class artiesten
+    internal class speellijst
     {
     }
 }
