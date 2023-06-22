@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spotify
 {
-    internal class speellijstmenu
+    internal class Playlistmenu
     {
         private static List<Playlist> playlists = new List<Playlist>();
 

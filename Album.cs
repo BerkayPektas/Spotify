@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spotify
 {
-    internal class albums
+    internal class Album
     {
         private List<Songs> songs = new List<Songs>();
         private static List<Playlist> playlists = new List<Playlist>();
@@ -24,7 +24,7 @@ namespace Spotify
                 Console.WriteLine("2. Central Cee - 23 ");
                 Console.WriteLine("3. The Weeknd - Starboy");
                 Console.WriteLine("4. Harry Styles - Harry's House");
-                Console.WriteLine("5. Back to menu");
+                Console.WriteLine("0. Back to menu");
                 Console.Write("Album: ");
                 optie = int.Parse(Console.ReadLine());
 
@@ -55,67 +55,67 @@ namespace Spotify
         }
 
         private void DisplaySongsForAlbum(string albumName, List<Songs> songs)
+{
+    int optie = 0;
+
+    do
+    {
+        Console.WriteLine($"Showing songs for {albumName}...");
+        Console.WriteLine();
+
+        for (int i = 0; i < songs.Count; i++)
         {
-            int optie = 0;
-
-            do
-            {
-                Console.WriteLine($"Showing songs for {albumName}...");
-                Console.WriteLine();
-
-                for (int i = 0; i < songs.Count; i++)
-                {
-                    Console.WriteLine($"{i + 1}. {songs[i].ToString()}");
-                }
-
-                Console.WriteLine("0. Back to album");
-                Console.Write("Song: ");
-                optie = int.Parse(Console.ReadLine());
-
-                if (optie == 0)
-                {
-                    break;
-                }
-
-                Songs selectedSong = songs[optie - 1];
-
-                Console.WriteLine($"Selected Song: {selectedSong.ToString()}");
-                Console.WriteLine("--------------------------------------------");
-
-                do
-                {
-                    Console.WriteLine("Select an option:");
-                    Console.WriteLine("1. Play Song");
-                    Console.WriteLine("2. Pause Song");
-                    Console.WriteLine("3. Add Song to Playlist");
-                    Console.WriteLine("4. Back to album");
-                    Console.Write("Option: ");
-                    optie = int.Parse(Console.ReadLine());
-
-                    switch (optie)
-                    {
-                        case 1:
-                            Console.WriteLine("Song is now being played");
-                            break;
-                        case 2:
-                            Console.WriteLine("Song is now being paused");
-                            break;
-                        case 3:
-                            Console.WriteLine("Add song to playlist:");
-                            AddSongToPlaylist(selectedSong);
-                            break;
-                        case 4:
-                            Console.WriteLine("Going back to album...");
-                            break;
-                        default:
-                            Console.WriteLine("Invalid option.");
-                            break;
-                    }
-
-                    Console.WriteLine();
-                } while (optie != 4);
-            } while (true);
+            Console.WriteLine($"{i + 1}. {songs[i].ToString()}");
         }
+
+        Console.WriteLine("0. Back to album");
+        Console.Write("Song: ");
+        optie = int.Parse(Console.ReadLine());
+
+        if (optie == 0)
+        {
+            break;
+        }
+
+        Songs selectedSong = songs[optie - 1];
+
+        Console.WriteLine($"Selected Song: {selectedSong.ToString()}");
+        Console.WriteLine("--------------------------------------------");
+
+        do
+        {
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("1. Play Song");
+            Console.WriteLine("2. Pause Song");
+            Console.WriteLine("3. Add Song to Playlist");
+            Console.WriteLine("4. Back to album");
+            Console.Write("Option: ");
+            optie = int.Parse(Console.ReadLine());
+
+            switch (optie)
+            {
+                case 1:
+                    Console.WriteLine("Song is now being played");
+                    break;
+                case 2:
+                    Console.WriteLine("Song is now being paused");
+                    break;
+                case 3:
+                    Console.WriteLine("Add song to playlist:");
+                    AddSongToPlaylist(selectedSong);
+                    break;
+                case 4:
+                    Console.WriteLine("Going back to album...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    break;
+            }
+
+            Console.WriteLine();
+        } while (optie != 4);
+    } while (true);
+}
 
 
         public void AddSongToPlaylist(Songs song)
@@ -165,5 +165,5 @@ namespace Spotify
             Console.WriteLine($"{song.Name} - {song.Artist} has been added to {selectedPlaylist.Name}!");
         }
     }
-
+    
 }

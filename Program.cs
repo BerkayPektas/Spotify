@@ -21,8 +21,8 @@
                 {
                     case 1:
                         Console.WriteLine("Navigating to Albums...");
-                        Albummenu albumsMenu = new Albummenu();
-                        albumsMenu.Display();
+                        Album albums = new Album();
+                        albums.Display();
                         break;
                     case 2:
                         Console.WriteLine("Navigating to Playlists...");
@@ -31,13 +31,13 @@
                         break;
                     case 3:
                         Console.WriteLine("Navigating to Friendlist...");
-                        Vriendenmenu vriendenMenu = new Vriendenmenu();
-                        vriendenMenu.Display();
+                        Vrienden vrienden = new Vrienden();
+                        vrienden.Display();
                         break;
                     case 4:
                         Console.WriteLine("Navigating to Profile...");
-                        Profilemenu profileMenu = new Profilemenu();
-                        profileMenu.Display();
+                        Profile profile = new Profile();
+                        profile.Display();
                         break;
                     case 5:
                         Console.WriteLine("Exiting...");
